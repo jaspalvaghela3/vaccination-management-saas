@@ -122,11 +122,17 @@ export const updateVaccinationRecord = async (req: Request, res: Response, next:
 
     const doctor = await prisma.doctor.findUnique({ where: { userId } });
 
+    const isAdministeredByCurrentDoctor =
+      data.status === VaccinationStatus.ADMINISTERED && doctor != null;
+    const administeredByDoctorId = isAdministeredByCurrentDoctor
+      ? doctor.id
+      : record.administeredByDoctorId;
+
     const updated = await prisma.vaccinationRecord.update({
       where: { id },
       data: {
         ...data,
-        administeredByDoctorId: data.status === VaccinationStatus.ADMINISTERED && doctor ? doctor.id : record.administeredByDoctorId,
+        administeredByDoctorId,
       },
       include: { vaccine: true },
     });

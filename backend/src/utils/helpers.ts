@@ -1,8 +1,10 @@
 import crypto from 'crypto';
 
+const AVERAGE_DAYS_PER_MONTH = 30.44;
+
 export function calculateVaccineDueDate(dob: Date, ageMonths: number): Date {
   const dueDate = new Date(dob);
-  const days = Math.round(ageMonths * 30.44);
+  const days = Math.round(ageMonths * AVERAGE_DAYS_PER_MONTH);
   dueDate.setDate(dueDate.getDate() + days);
   return dueDate;
 }

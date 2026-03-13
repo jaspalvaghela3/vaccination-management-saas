@@ -2,6 +2,14 @@ import prisma from '../config/database';
 import { calculateVaccineDueDate, isOverdue } from '../utils/helpers';
 import { VaccinationStatus } from '@prisma/client';
 
+/**
+ * Represents a single item in a child's vaccination schedule.
+ * Each item corresponds to one vaccine and its current status.
+ * The optional `record` field is present only when a VaccinationRecord
+ * already exists in the database (i.e., the vaccine has been scheduled
+ * or administered). When `record` is absent, the status is derived
+ * from whether the due date has passed.
+ */
 export interface ScheduleItem {
   vaccineId: string;
   vaccineName: string;
