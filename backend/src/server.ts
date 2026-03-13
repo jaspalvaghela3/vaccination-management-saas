@@ -29,7 +29,7 @@ app.use('/api', routes);
 
 app.use(globalErrorHandler);
 
-const PORT = Number(process.env.PORT) || 3000;
+const PORT = Number(process.env.PORT) || 5000;
 app.listen(PORT, () => {
   logger.info(`Server running on port ${PORT}`);
   logger.info(`API docs available at http://localhost:${PORT}/api-docs`);
